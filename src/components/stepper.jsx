@@ -39,10 +39,10 @@ const Stepper = () => {
                         'Content-Type': 'multipart/form-data', 
                         'Authorization': `Bearer ${process.env.REACT_APP_API_KEY}`
                     },
-                    timeout: 60000
+                    timeout: 180000 
                 }
             );
-    
+            console.log('Response:', response);
             return response.data;
         } catch (error) {
             console.error('Error sending data:', error);
