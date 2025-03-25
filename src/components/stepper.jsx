@@ -38,7 +38,8 @@ const Stepper = () => {
                     headers: { 
                         'Content-Type': 'multipart/form-data', 
                         'Authorization': `Bearer ${process.env.REACT_APP_API_KEY}`
-                    } 
+                    },
+                    timeout: 60000
                 }
             );
     
@@ -203,10 +204,10 @@ const Stepper = () => {
             )} */}
 
             {!complete && (
-                    <button className='btn' onClick={handleNext}>
-                        {currrentStep === steps.length ? "Download" : "Next"}
-                    </button>
-                )}
+                <button className='btn' onClick={handleNext}>
+                    {currrentStep === steps.length ? "Download" : "Next"}
+                </button>
+            )}
         </div>
     </>
   )
