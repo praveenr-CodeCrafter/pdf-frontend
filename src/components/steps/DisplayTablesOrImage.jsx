@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import "./scrollbar.css"
 
 const DisplayTablesOrImage = forwardRef(({ onValidate, showErrors, data }, ref) => {
-    console.log('data', data)    
+    // console.log('data', data)    
 
     const tables = Array.isArray(data) ? data : [];
 
@@ -16,7 +16,7 @@ const DisplayTablesOrImage = forwardRef(({ onValidate, showErrors, data }, ref) 
             ...prev,
             [tableIndex]: !prev[tableIndex]
         }));
-        console.log('checkedTables: ',checkedTables)
+        // console.log('checkedTables: ',checkedTables)
     };
 
     const handleCustomNameChange = (tableIndex, value) => {
@@ -65,7 +65,7 @@ const DisplayTablesOrImage = forwardRef(({ onValidate, showErrors, data }, ref) 
 
         setCheckBoxError(checkError)
         onValidate(isValid);
-        console.log('checkedBoxData: ', checkedBoxData)
+        // console.log('checkedBoxData: ', checkedBoxData)
         return { isValid, checkedBoxData };
     }
     

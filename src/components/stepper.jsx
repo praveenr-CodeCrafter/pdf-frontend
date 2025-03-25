@@ -29,7 +29,7 @@ const Stepper = () => {
             const formData = new FormData();
             formData.append('fileUpload', data.fileUpload);
             formData.append('exportType', data.exportType);
-            console.log("Backend URL:", process.env.REACT_APP_BACKEND_URL);
+            // console.log("Backend URL:", process.env.REACT_APP_BACKEND_URL);
             const response = await axios.post(
                 process.env.REACT_APP_BACKEND_URL + '/sendFileAndType',
                 // `${process.env.REACT_APP_BACKEND_URL}/sendFileAndType`,
@@ -88,7 +88,8 @@ const Stepper = () => {
                             console.log('Failed to process data on the backend');
                         }
                     } catch (error) {
-                        console.error('Error during backend processing:', error);
+                        console.error('Error during backend processing:');
+                        // console.error('Error during backend processing:', error);
                     }
                 }
             }
@@ -112,11 +113,16 @@ const Stepper = () => {
                 if (isValid) {
                     
                     const updatedData = { ...dataToDownload, fileSetup: radioFileType};
-                    console.log('updatedData:', updatedData);
+                    // console.log('updatedData:', updatedData);
                     setDataToDownload(updatedData)
                     try {
-                        const response = await axios.post('http://localhost:5000/filesToDownload', updatedData, {
-                            headers: { 'Content-Type': 'application/json' },
+                        // const response = await axios.post('http://localhost:5000/filesToDownload', updatedData, {
+                        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/filesToDownload', updatedData, {
+                            headers: 
+                                { 
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${process.env.REACT_APP_API_KEY}`
+                                },
                             responseType: 'blob', 
                         });
         
@@ -134,7 +140,7 @@ const Stepper = () => {
 
                                 window.URL.revokeObjectURL(url);
                             } else if (contentType === 'application/zip') {
-                                console.log('ZIP file received:', response);
+                                // console.log('ZIP file received:', response);
                                 const blob = new Blob([response.data], { type: 'application/zip' });
 
 
@@ -170,7 +176,7 @@ const Stepper = () => {
         }
     };
 
-    console.log('file', dataToDownload)
+    // console.log('file', dataToDownload)
 
   return (
     <>
@@ -189,11 +195,13 @@ const Stepper = () => {
             {stepContent[currrentStep]}
         </div>
         
-        <div className='flex justify-end mt-5 '>
-            {/* {!complete && <button className='btn' onClick={() => {
-                currrentStep === steps.length ? setComplete(true) :
-                setCurrentStep((prev) => prev + 1);
-            }}>{currrentStep === steps.length ? "Download" : "Next"}</button>} */}
+        <div className={`flex mt-5 justify-end `}>
+            {/* {currrentStep === 2 && (
+                <div className="text-left border border-black p-2 rounded-lg">
+                <p>Views and Both are under maintenance</p>
+                </div>
+            )} */}
+
             {!complete && (
                     <button className='btn' onClick={handleNext}>
                         {currrentStep === steps.length ? "Download" : "Next"}
