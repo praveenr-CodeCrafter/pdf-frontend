@@ -45,7 +45,18 @@ const Stepper = () => {
             console.log('Response:', response);
             return response.data;
         } catch (error) {
-            console.error('Error sending data:', error);
+            // console.error('Error sending data:', error);
+            console.error('Detailed Error:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status,
+                headers: error.response?.headers,
+                config: {
+                    url: error.config?.url,
+                    method: error.config?.method,
+                    headers: error.config?.headers
+                }
+            });
             return null;
         }
     }
